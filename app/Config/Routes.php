@@ -6,8 +6,11 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->presenter('pelicula');
-$routes->presenter('categoria');
+$routes->group('dashboard', function($routes){
+$routes->presenter('pelicula',['controller'=>'Dashboard\Pelicula']);
+$routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);
+});
+
 
 /* +--------+-----------------------+------+---------------------------------------+----------------+---------------+
 | Method | Route                 | Name | Handler                               | Before Filters | After Filters |

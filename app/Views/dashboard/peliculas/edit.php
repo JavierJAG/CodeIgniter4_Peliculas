@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva pelicula</title>
+    <title>Editar pelicula</title>
 </head>
 <body>
-    <form action="/pelicula/create" method="post">
+    <form action="/dashboard/pelicula/update/<?= $pelicula['id']?>" method="post">
         <label for="titulo">Título</label>
-        <input type="text" name= "titulo" id="titulo" ?>
+        <input type="text" name= "titulo" id="titulo" value="<?= $pelicula['titulo'] ?>">
         <label for="descripcion">Descripción</label>
-        <textarea name= "descripcion" id="descripcion"></textarea>
+        <textarea name= "descripcion" id="descripcion"> <?= $pelicula['descripcion'] ?></textarea>
         <button type="submit" value="Enviar">Enviar</button>
     </form>
 </body>

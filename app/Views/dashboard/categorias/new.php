@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="/categoria/create" method="post">
+    <form action="/dashboard/categoria/create" method="post">
         <label for="titulo">Título</label>
         <input type="text" name="titulo" id="titulo" ?>
         <button type="submit" value="Enviar">Enviar</button>

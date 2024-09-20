@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="/categoria/update/<?= $categoria['id'] ?>" method="post">
+    <form action="/dashboard/categoria/update/<?= $categoria['id'] ?>" method="post">
         <label for="titulo">Título</label>
         <input type="text" name="titulo" id="titulo" value="<?= $categoria['titulo'] ?>">
         <button type="submit" value="Enviar">Enviar</button>

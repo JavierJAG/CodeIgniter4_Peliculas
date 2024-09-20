@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Dashboard;
 
+use App\Controllers\BaseController;
 use App\Models\PeliculaModel;
 
 class Pelicula extends BaseController
@@ -11,24 +12,23 @@ class Pelicula extends BaseController
     {
         $peliculaModel = new PeliculaModel();
 
-        return view("/peliculas/index", ['pelicula' => $peliculaModel->findAll()]);
+        return view("/dashboard/peliculas/index", ['pelicula' => $peliculaModel->findAll()]);
     }
     public function show($id)
     {
         $peliculaModel = new PeliculaModel();
 
-        return view('/peliculas/show',['pelicula'=>$peliculaModel->find($id)]);
+        return view('/dashboard/peliculas/show',['pelicula'=>$peliculaModel->find($id)]);
     }
     public function new()
     {
-       
-        return view('/peliculas/new');
+        return view('/dashboard/peliculas/new');
     }
     public function edit($id)
     {
         $peliculaModel = new PeliculaModel();
 
-        return view('/peliculas/edit',['pelicula'=> $peliculaModel->find($id)]);
+        return view('/dashboard/peliculas/edit',['pelicula'=> $peliculaModel->find($id)]);
     }
     public function create()
     {
@@ -39,8 +39,7 @@ class Pelicula extends BaseController
             'titulo'=>$titulo,
             'descripcion'=>$descripcion
         ]);
-        echo "Pelicula añadida con éxito";
-
+        return redirect()->to('/dashboard/pelicula');
     }
     public function update($id)
     {
@@ -51,12 +50,12 @@ class Pelicula extends BaseController
             'titulo' => $titulo,
             'descripcion' => $descripcion
          ]);
-
+         return redirect()->to('/dashboard/pelicula');
     }
     public function delete($id)
     {
         $peliculaModel = new PeliculaModel();
         $peliculaModel->delete($id);
-        return view("/peliculas/index", ['pelicula' => $peliculaModel->findAll()]);
+        return redirect()->back();
     }
 }
