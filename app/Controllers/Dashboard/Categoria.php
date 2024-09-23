@@ -30,24 +30,30 @@ class Categoria extends BaseController
     public function update($id)
     {
         $categoriaModel = new CategoriaModel();
-        $titulo = $this->request->getPost('titulo');
-        $categoriaModel->update($id, ['titulo' => $titulo]);
-        echo "Actualizado con éxito";
-        return redirect()->to('/dashboard/categoria')->with('mensaje','Categoria actualizada correctamente');
+        if ($this->validate('categorias')) {
+            $titulo = $this->request->getPost('titulo');
+            $categoriaModel->update($id, ['titulo' => $titulo]);
+            return redirect()->to('/dashboard/categoria')->with('mensaje', 'Categoria actualizada correctamente');
+        } else {
+            return redirect()->back()->with('mensaje', $this->validator->listErrors())->withInput();
+        }
     }
     public function delete($id)
     {
         $categoriaModel = new CategoriaModel();
         $categoriaModel->delete($id);
-        echo "Eliminada con éxito";
-        return redirect()->back()->with('mensaje','Categoría eliminada correctamente');
+        return redirect()->back()->with('mensaje', 'Categoría eliminada correctamente');
     }
     public function create()
     {
         $categoriaModel = new CategoriaModel();
-        $titulo = $this->request->getPost('titulo');
-        $categoriaModel->insert(['titulo' => $titulo]);
-        session()->setFlashdata('mensaje','Categoría creada correctamente');
-        return redirect()->to('/dashboard/categoria');
+        if ($this->validate('categorias')) {
+            $titulo = $this->request->getPost('titulo');
+            $categoriaModel->insert(['titulo' => $titulo]);
+            session()->setFlashdata('mensaje', 'Categoría creada correctamente');
+            return redirect()->to('/dashboard/categoria');
+        } else {
+            return redirect()->back()->with('mensaje', $this->validator->listErrors());
+        }
     }
 }
