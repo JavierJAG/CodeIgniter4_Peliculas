@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?= $this->extend('/Layouts/dashboard') ?>
+<?= $this->section('titulo') ?>
     <title>Categorías</title>
-</head>
-
-<body>
+<?= $this->endSection()?>
+<?= $this->section('body')?>
     <?= view('partials/_session')?>
     <h1>Categorías</h1>
     <h3><a href="/dashboard/categoria/new">Crear Categoria</a></h3>
@@ -43,7 +38,4 @@
         <?php endforeach ?>
 
     </table>
-
-</body>
-
-</html>
+<?= $this->endSection()?>
