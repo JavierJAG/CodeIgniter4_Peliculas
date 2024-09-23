@@ -4,11 +4,11 @@
 <?= $this->endSection() ?>
 <?= $this->section('body') ?>
 <?= view('partials/_session') ?>
-<form action="/dashboard/pelicula/update/<?= $pelicula['id'] ?>" method="post">
+<form action="/dashboard/pelicula/update/<?= $pelicula->id ?>" method="post">
     <label for="titulo">Título</label>
-    <input type="text" name="titulo" id="titulo" value="<?= old('titulo',$pelicula['titulo']) ?>">
+    <input type="text" name="titulo" id="titulo" value="<?= old('titulo', $pelicula->titulo) ?>">
     <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" id="descripcion"> <?= old('descripcion',$pelicula['descripcion']) ?></textarea>
+    <textarea name="descripcion" id="descripcion"> <?= old('descripcion', $pelicula->descripcion) ?></textarea>
     <button type="submit" value="Enviar">Enviar</button>
 </form>
-<?= $this->endSection ?>
+<?= $this->endSection() ?>

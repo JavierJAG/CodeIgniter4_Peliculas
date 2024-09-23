@@ -22,15 +22,15 @@
         <?php foreach ($categoria as $key => $value) : ?>
             <tr>
                 <td>
-                    <?= $value['id'] ?>
+                    <?= $value->id ?>
                 </td>
                 <td>
-                    <?= $value['titulo'] ?>
+                    <?= $value->titulo ?>
                 </td>
                 <td>
-                    <a href="/dashboard/categoria/show/<?= $value['id'] ?>">Mostrar</a>
-                    <a href="/dashboard/categoria/edit/<?= $value['id'] ?>">Editar</a>
-                    <form action="/dashboard/categoria/delete/<?= $value['id'] ?>" method="post">
+                    <a href="/dashboard/categoria/show/<?= $value->id ?>">Mostrar</a>
+                    <a href="/dashboard/categoria/edit/<?= $value->id ?>">Editar</a>
+                    <form action="/dashboard/categoria/delete/<?= $value->id ?>" method="post">
                         <button type="submit">Eliminar</button>
                     </form>
                 </td>

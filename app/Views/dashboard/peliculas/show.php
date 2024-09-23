@@ -18,13 +18,13 @@
     </tr>
     <tr>
         <td>
-            <?= $pelicula['id'] ?>
+            <?= $pelicula->id ?>
         </td>
         <td>
-            <?= $pelicula['titulo'] ?>
+            <?= $pelicula->titulo ?>
         </td>
         <td>
-            <?= $pelicula['descripcion'] ?>
+            <?= $pelicula->descripcion ?>
         </td>
     </tr>
 </table>

@@ -9,7 +9,7 @@ class CategoriaModel extends Model
     protected $table            = 'categorias';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['titulo'];

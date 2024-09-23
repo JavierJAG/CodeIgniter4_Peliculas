@@ -15,10 +15,10 @@
     </tr>
     <tr>
         <td>
-            <?= $categoria['id'] ?>
+            <?= $categoria->id ?>
         </td>
         <td>
-            <?= $categoria['titulo'] ?>
+            <?= $categoria->titulo ?>
         </td>
     </tr>
 </table>
