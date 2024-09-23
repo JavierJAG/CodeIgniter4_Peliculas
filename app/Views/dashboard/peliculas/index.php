@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <?= view('/partials/_session') ?>
     <h1>Lista de películas</h1>
     <h3><a href="/dashboard/pelicula/new">Crear Película</a></h3>
     <table>

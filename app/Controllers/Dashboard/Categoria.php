@@ -33,20 +33,21 @@ class Categoria extends BaseController
         $titulo = $this->request->getPost('titulo');
         $categoriaModel->update($id, ['titulo' => $titulo]);
         echo "Actualizado con éxito";
-        return redirect()->to('/dashboard/categoria');
+        return redirect()->to('/dashboard/categoria')->with('mensaje','Categoria actualizada correctamente');
     }
     public function delete($id)
     {
         $categoriaModel = new CategoriaModel();
         $categoriaModel->delete($id);
         echo "Eliminada con éxito";
-        return redirect()->back();
+        return redirect()->back()->with('mensaje','Categoría eliminada correctamente');
     }
     public function create()
     {
         $categoriaModel = new CategoriaModel();
         $titulo = $this->request->getPost('titulo');
         $categoriaModel->insert(['titulo' => $titulo]);
+        session()->setFlashdata('mensaje','Categoría creada correctamente');
         return redirect()->to('/dashboard/categoria');
     }
 }

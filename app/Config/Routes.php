@@ -2,13 +2,14 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-// $routes->setAutoRutes(TRUE);
+// $routes->setAutoRutes(false);    en true genera rutas de la forma nombreControlador/método
 /**
  * @var RouteCollection $routes
  */
-$routes->group('dashboard', function($routes){
-$routes->presenter('pelicula',['controller'=>'Dashboard\Pelicula']);
-$routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);
+$routes->group('dashboard', ['namespace'=>'App\Controllers\Dashboard'], function($routes){
+$routes->presenter('pelicula');
+$routes->presenter('categoria',['except'=>['show']]);
+// $routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);    Forma de hacerlo individualmente
 });
 
 

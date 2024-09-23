@@ -6,6 +6,7 @@
     <title>Editar pelicula</title>
 </head>
 <body>
+    <?= view('partials/_session')?>
     <form action="/dashboard/pelicula/update/<?= $pelicula['id']?>" method="post">
         <label for="titulo">Título</label>
         <input type="text" name= "titulo" id="titulo" value="<?= $pelicula['titulo'] ?>">

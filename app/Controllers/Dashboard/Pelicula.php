@@ -39,7 +39,7 @@ class Pelicula extends BaseController
             'titulo'=>$titulo,
             'descripcion'=>$descripcion
         ]);
-        return redirect()->to('/dashboard/pelicula');
+        return redirect()->to('/dashboard/pelicula')->with('mensaje','Película creada correctamente');
     }
     public function update($id)
     {
@@ -50,12 +50,14 @@ class Pelicula extends BaseController
             'titulo' => $titulo,
             'descripcion' => $descripcion
          ]);
+         session()->setFlashdata('mensaje','Película actualizada correctamente'); // Datos disponibles solo durante la siguiente solicitud, set() es permanente hasta que se cierre la sesion
          return redirect()->to('/dashboard/pelicula');
     }
     public function delete($id)
     {
         $peliculaModel = new PeliculaModel();
         $peliculaModel->delete($id);
+        session()->setFlashdata('mensaje','Película eliminada correctamente');
         return redirect()->back();
     }
 }

@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <?= view('partials/_session')?>
     <h1>Categorías</h1>
     <h3><a href="/dashboard/categoria/new">Crear Categoria</a></h3>
     <table>
