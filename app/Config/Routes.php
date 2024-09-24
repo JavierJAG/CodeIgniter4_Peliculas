@@ -20,29 +20,45 @@ $routes->post('login','Usuario::login');
 $routes->post('create','Usuario::create');
 $routes->post('logout','Usuario::logout');
 });
+$routes->group('api',['namespace' => '\App\Controllers\Api'],function($routes){
+$routes->resource('pelicula'/* ,['except'=>['index']] */);
+$routes->resource('categoria');
+});
 
 
-/* +--------+-----------------------+------+---------------------------------------+----------------+---------------+
-| Method | Route                 | Name | Handler                               | Before Filters | After Filters |
-+--------+-----------------------+------+---------------------------------------+----------------+---------------+
-| GET    | pelicula              | »    | \App\Controllers\Pelicula::index      |                |               |
-| GET    | pelicula/show/(.*)    | »    | \App\Controllers\Pelicula::show/$1    |                |               |
-| GET    | pelicula/new          | »    | \App\Controllers\Pelicula::new        |                |               |
-| GET    | pelicula/edit/(.*)    | »    | \App\Controllers\Pelicula::edit/$1    |                |               |
-| GET    | pelicula/remove/(.*)  | »    | \App\Controllers\Pelicula::remove/$1  |                |               |
-| GET    | pelicula/(.*)         | »    | \App\Controllers\Pelicula::show/$1    |                |               |
-| GET    | categoria             | »    | \App\Controllers\Categoria::index     |                |               |
-| GET    | categoria/show/(.*)   | »    | \App\Controllers\Categoria::show/$1   |                |               |
-| GET    | categoria/new         | »    | \App\Controllers\Categoria::new       |                |               |
-| GET    | categoria/edit/(.*)   | »    | \App\Controllers\Categoria::edit/$1   |                |               |
-| GET    | categoria/remove/(.*) | »    | \App\Controllers\Categoria::remove/$1 |                |               |
-| GET    | categoria/(.*)        | »    | \App\Controllers\Categoria::show/$1   |                |               |
-| POST   | pelicula/create       | »    | \App\Controllers\Pelicula::create     |                |               |
-| POST   | pelicula/update/(.*)  | »    | \App\Controllers\Pelicula::update/$1  |                |               |
-| POST   | pelicula/delete/(.*)  | »    | \App\Controllers\Pelicula::delete/$1  |                |               |
-| POST   | pelicula              | »    | \App\Controllers\Pelicula::create     |                |               |
-| POST   | categoria/create      | »    | \App\Controllers\Categoria::create    |                |               |
-| POST   | categoria/update/(.*) | »    | \App\Controllers\Categoria::update/$1 |                |               |
-| POST   | categoria/delete/(.*) | »    | \App\Controllers\Categoria::delete/$1 |                |               |
-| POST   | categoria             | »    | \App\Controllers\Categoria::create    |                |               |
-+--------+-----------------------+------+---------------------------------------+----------------+---------------+ */
+/* +--------+---------------------------------+------+-------------------------------------------------+----------------+---------------+
+| Method | Route                           | Name | Handler                                         | Before Filters | After Filters |
++--------+---------------------------------+------+-------------------------------------------------+----------------+---------------+
+| GET    | dashboard/pelicula              | »    | \App\Controllers\Dashboard\Pelicula::index      | usuarios       |               |
+| GET    | dashboard/pelicula/show/(.*)    | »    | \App\Controllers\Dashboard\Pelicula::show/$1    | usuarios       |               |
+| GET    | dashboard/pelicula/new          | »    | \App\Controllers\Dashboard\Pelicula::new        | usuarios       |               |
+| GET    | dashboard/pelicula/edit/(.*)    | »    | \App\Controllers\Dashboard\Pelicula::edit/$1    | usuarios       |               |
+| GET    | dashboard/pelicula/remove/(.*)  | »    | \App\Controllers\Dashboard\Pelicula::remove/$1  | usuarios       |               |
+| GET    | dashboard/pelicula/(.*)         | »    | \App\Controllers\Dashboard\Pelicula::show/$1    | usuarios       |               |
+| GET    | dashboard/categoria             | »    | \App\Controllers\Dashboard\Categoria::index     | usuarios       |               |
+| GET    | dashboard/categoria/new         | »    | \App\Controllers\Dashboard\Categoria::new       | usuarios       |               |
+| GET    | dashboard/categoria/edit/(.*)   | »    | \App\Controllers\Dashboard\Categoria::edit/$1   | usuarios       |               |
+| GET    | dashboard/categoria/remove/(.*) | »    | \App\Controllers\Dashboard\Categoria::remove/$1 | usuarios       |               |
+| GET    | web/index                       | »    | \App\Controllers\Web\Usuario::index             |                |               |
+| GET    | web/new                         | »    | \App\Controllers\Web\Usuario::new               |                |               |
+| GET    | web/show                        | »    | \App\Controllers\Web\Usuario::show              |                |               |
+| GET    | api/pelicula                    | »    | \App\Controllers\Api\Pelicula::index            |                |               |
+| GET    | api/pelicula/new                | »    | \App\Controllers\Api\Pelicula::new              |                |               |
+| GET    | api/pelicula/(.*)/edit          | »    | \App\Controllers\Api\Pelicula::edit/$1          |                |               |
+| GET    | api/pelicula/(.*)               | »    | \App\Controllers\Api\Pelicula::show/$1          |                |               |
+| POST   | dashboard/pelicula/create       | »    | \App\Controllers\Dashboard\Pelicula::create     | usuarios       |               |
+| POST   | dashboard/pelicula/update/(.*)  | »    | \App\Controllers\Dashboard\Pelicula::update/$1  | usuarios       |               |
+| POST   | dashboard/pelicula/delete/(.*)  | »    | \App\Controllers\Dashboard\Pelicula::delete/$1  | usuarios       |               |
+| POST   | dashboard/pelicula              | »    | \App\Controllers\Dashboard\Pelicula::create     | usuarios       |               |
+| POST   | dashboard/categoria/create      | »    | \App\Controllers\Dashboard\Categoria::create    | usuarios       |               |
+| POST   | dashboard/categoria/update/(.*) | »    | \App\Controllers\Dashboard\Categoria::update/$1 | usuarios       |               |
+| POST   | dashboard/categoria/delete/(.*) | »    | \App\Controllers\Dashboard\Categoria::delete/$1 | usuarios       |               |
+| POST   | dashboard/categoria             | »    | \App\Controllers\Dashboard\Categoria::create    | usuarios       |               |
+| POST   | web/login                       | »    | \App\Controllers\Web\Usuario::login             |                |               |
+| POST   | web/create                      | »    | \App\Controllers\Web\Usuario::create            |                |               |
+| POST   | web/logout                      | »    | \App\Controllers\Web\Usuario::logout            |                |               |
+| POST   | api/pelicula                    | »    | \App\Controllers\Api\Pelicula::create           |                |               |
+| PATCH  | api/pelicula/(.*)               | »    | \App\Controllers\Api\Pelicula::update/$1        |                |               |
+| PUT    | api/pelicula/(.*)               | »    | \App\Controllers\Api\Pelicula::update/$1        |                |               |
+| DELETE | api/pelicula/(.*)               | »    | \App\Controllers\Api\Pelicula::delete/$1        |                |               |
++--------+---------------------------------+------+-------------------------------------------------+----------------+---------------+ */
