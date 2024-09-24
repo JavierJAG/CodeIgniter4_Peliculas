@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Web\Usuario;
 use CodeIgniter\Router\RouteCollection;
 
 // $routes->setAutoRutes(false);    en true genera rutas de la forma nombreControlador/método
@@ -10,6 +11,14 @@ $routes->group('dashboard', ['namespace'=>'App\Controllers\Dashboard'], function
 $routes->presenter('pelicula');
 $routes->presenter('categoria',['except'=>['show']]);
 // $routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);    Forma de hacerlo individualmente
+});
+$routes->group('web',['namespace' => '\App\Controllers\Web'],function($routes){
+$routes->get('index','Usuario::index');
+$routes->get('new','Usuario::new');
+$routes->get('show','Usuario::show');
+$routes->post('login','Usuario::login');
+$routes->post('create','Usuario::create');
+$routes->post('logout','Usuario::logout');
 });
 
 
