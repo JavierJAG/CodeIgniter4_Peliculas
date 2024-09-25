@@ -1,24 +1,22 @@
 <?= $this->extend('/Layouts/dashboard') ?>
-
 <?= $this->section('titulo') ?>
-<title>Crear Película</title>
+<title>Editar Película</title>
 <?= $this->endSection() ?>
-
 <?= $this->section('body') ?>
-<form action="/dashboard/pelicula/create" method="post">
+<?= view('partials/_session') ?>
+<form action="/dashboard/etiqueta/update/<?= $etiqueta->id ?>" method="post">
     <label for="titulo">Título</label>
-    <input type="text" name="titulo" id="titulo" />
-
+    <input type="text" name="titulo" id="titulo" value="<?= old('titulo', $etiqueta->titulo) ?>">
+    
     <label for="categoria">Categoría</label>
     <select name="categoria_id" id="categoria">
         <?php foreach ($categorias as $c) : ?>
-            <option value="<?= $c->id ?>"><?= $c->titulo ?></option>
+            <option value="<?= $c->id ?>" <?= (old('categoria_id', $etiqueta->categoria_id) == $c->id) ? 'selected' : '' ?>>
+                <?= $c->titulo ?>
+            </option>
         <?php endforeach; ?>
     </select>
 
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" id="descripcion"></textarea>
-    
     <button type="submit" value="Enviar">Enviar</button>
 </form>
 <?= $this->endSection() ?>

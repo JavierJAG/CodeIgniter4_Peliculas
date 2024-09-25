@@ -7,22 +7,27 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->group('dashboard', ['namespace'=>'App\Controllers\Dashboard'], function($routes){
-$routes->presenter('pelicula');
-$routes->presenter('categoria',['except'=>['show']]);
-// $routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);    Forma de hacerlo individualmente
+$routes->group('dashboard', ['namespace' => 'App\Controllers\Dashboard'], function ($routes) {
+    $routes->get('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas/$1');
+    $routes->post('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas_post/$1');
+    $routes->post('pelicula/(:num)/etiqueta/(:num)/delete','Pelicula::etiqueta_delete/$1/$2');
+    $routes->presenter('pelicula');
+    $routes->presenter('etiqueta');
+    $routes->presenter('categoria', ['except' => ['show']]);
+    // $routes->presenter('categoria',['except'=>['show'],'controller'=>'Dashboard\Categoria']);    Forma de hacerlo individualmente
+
 });
-$routes->group('web',['namespace' => '\App\Controllers\Web'],function($routes){
-$routes->get('index','Usuario::index');
-$routes->get('new','Usuario::new');
-$routes->get('show','Usuario::show');
-$routes->post('login','Usuario::login');
-$routes->post('create','Usuario::create');
-$routes->post('logout','Usuario::logout');
+$routes->group('web', ['namespace' => '\App\Controllers\Web'], function ($routes) {
+    $routes->get('index', 'Usuario::index');
+    $routes->get('new', 'Usuario::new');
+    $routes->get('show', 'Usuario::show');
+    $routes->post('login', 'Usuario::login');
+    $routes->post('create', 'Usuario::create');
+    $routes->post('logout', 'Usuario::logout');
 });
-$routes->group('api',['namespace' => '\App\Controllers\Api'],function($routes){
-$routes->resource('pelicula'/* ,['except'=>['index']] */);
-$routes->resource('categoria');
+$routes->group('api', ['namespace' => '\App\Controllers\Api'], function ($routes) {
+    $routes->resource('pelicula'/* ,['except'=>['index']] */);
+    $routes->resource('categoria');
 });
 
 

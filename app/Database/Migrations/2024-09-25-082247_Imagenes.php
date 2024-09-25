@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Peliculas extends Migration
+class Imagenes extends Migration
 {
     public function up()
     {
@@ -16,22 +16,26 @@ class Peliculas extends Migration
                     'unsigned' => TRUE,
                     'auto_increment' => TRUE
                 ],
-                'titulo' => [
+                'imagen' => [
                     'type' => 'VARCHAR',
-                    'constraint' => 255
+                    'constraint' => 255,
                 ],
-                'descripcion' => [
-                    'type' => 'TEXT',
-                    'null' => TRUE
+                'extension' => [
+                    'type' => 'VARCHAR',
+                    'constraint' => 255,
                 ],
+                'data' => [
+                    'type' => 'VARCHAR',
+                    'constraint' => 255,
+                ]
             ]
         );
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable("peliculas");
+        $this->forge->createTable('imagenes');
     }
 
     public function down()
     {
-        $this->forge->dropTable('peliculas');
+        $this->forge->dropTable('imagenes');
     }
 }
