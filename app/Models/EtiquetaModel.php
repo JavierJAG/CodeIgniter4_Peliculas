@@ -45,6 +45,6 @@ class EtiquetaModel extends Model
     protected $afterDelete    = [];
 
     public function getEtiquetaIndex(){
-        return $this->select('etiquetas.*,categorias.titulo as categoria')->join('categorias','categorias.id=etiquetas.categoria_id')->find();
+        return $this->select('etiquetas.*,categorias.titulo as categoria')->join('categorias','categorias.id=etiquetas.categoria_id')->paginate(10);
     }
 }

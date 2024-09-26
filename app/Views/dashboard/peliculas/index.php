@@ -30,4 +30,5 @@
     <?php endforeach ?>
 
 </table>
+<?= $pager->links() ?>
 <?= $this->endSection() ?>

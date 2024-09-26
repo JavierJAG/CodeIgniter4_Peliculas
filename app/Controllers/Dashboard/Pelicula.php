@@ -17,7 +17,7 @@ class Pelicula extends BaseController
     {
         $peliculaModel = new PeliculaModel();
         $data = $peliculaModel->getPeliculaIndex();
-        return view('/dashboard/peliculas/index', ['pelicula' => $data]);
+        return view('/dashboard/peliculas/index', ['pelicula' => $data,'pager' => $peliculaModel->pager]);
     }
     public function show($id)
     {
@@ -126,6 +126,7 @@ class Pelicula extends BaseController
 
     private function asignar_imagen($peliculaId)
     {
+        helper('filesystem');
         $imagefile = $this->request->getFile('imagen');
 
         // Verifica si el archivo es válido
@@ -169,7 +170,7 @@ class Pelicula extends BaseController
                 $imagenId = $imagenModel->insert([
                     'imagen' => $imageNombre,
                     'extension' => $ext,
-                    'data' => 'pendiente'
+                    'data' => json_encode(get_file_info('../public/uploads/peliculas/'.$imageNombre))
                 ]);
 
                 $peliculaImagenModel = new PeliculaImagenModel();
@@ -211,4 +212,5 @@ class Pelicula extends BaseController
         $rutaImagen = 'uploads/peliculas/' . $imagen->imagen;
         return $this->response->download($rutaImagen,null)/* ->setFileName('nombre.jpg') opcion para dejar otro nombre */;
     }
+    
 }

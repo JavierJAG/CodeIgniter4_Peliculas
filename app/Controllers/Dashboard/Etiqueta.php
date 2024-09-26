@@ -14,7 +14,7 @@ class Etiqueta extends BaseController
     {
         $etiquetaModel = new EtiquetaModel();
         $data = $etiquetaModel->getEtiquetaIndex();
-        return view('/dashboard/etiquetas/index', ['etiqueta' => $data]);
+        return view('/dashboard/etiquetas/index', ['etiqueta' => $data,'pager'=>$etiquetaModel->pager]);
     }
     public function show($id)
     {

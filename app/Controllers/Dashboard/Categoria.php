@@ -11,7 +11,7 @@ class Categoria extends BaseController
     public function index()
     {
         $categoriaModel = new CategoriaModel();
-        return view("/dashboard/categorias/index", ['categoria' => $categoriaModel->findAll()]);
+        return view("/dashboard/categorias/index", ['categoria' => $categoriaModel->paginate(10),'pager'=>$categoriaModel->pager]);
     }
     public function show($id)
     {

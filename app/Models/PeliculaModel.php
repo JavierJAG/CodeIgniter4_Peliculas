@@ -48,7 +48,11 @@ class PeliculaModel extends Model
 
     public function getPeliculaIndex()
     {
-        return $this->select('peliculas.*,categorias.titulo as categoria')->join('categorias', 'categorias.id=peliculas.categoria_id')->find();
+        return $this
+        ->select('peliculas.*,categorias.titulo as categoria')
+        ->join('categorias', 'categorias.id=peliculas.categoria_id')
+        // ->find();
+        ->paginate(10);
     }
     public function getImagesById($id)
     {
