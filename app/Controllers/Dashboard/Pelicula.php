@@ -5,7 +5,9 @@ namespace App\Controllers\Dashboard;
 use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
 use App\Models\EtiquetaModel;
+use App\Models\ImagenModel;
 use App\Models\PeliculaEtiquetaModel;
+use App\Models\PeliculaImagenModel;
 use App\Models\PeliculaModel;
 
 class Pelicula extends BaseController
@@ -21,7 +23,11 @@ class Pelicula extends BaseController
     {
         $peliculaModel = new PeliculaModel();
 
-        return view('/dashboard/peliculas/show', ['pelicula' => $peliculaModel->find($id),'etiquetas'=>$peliculaModel->getEtiquetasById($id)]);
+        return view('/dashboard/peliculas/show', [
+            'pelicula' => $peliculaModel->find($id),
+            'etiquetas' => $peliculaModel->getEtiquetasById($id),
+            'imagenes' => $peliculaModel->getImagesById($id)
+        ]);
     }
     public function new()
     {
@@ -63,8 +69,9 @@ class Pelicula extends BaseController
                 'descripcion' => $descripcion,
                 'categoria_id' => $categoria_id
             ]);
-            session()->setFlashdata('mensaje', 'Película actualizada correctamente'); // Datos disponibles solo durante la siguiente solicitud, set() es permanente hasta que se cierre la sesion
-            return redirect()->to('/dashboard/pelicula');
+            $this->asignar_imagen($id);
+            // session()->setFlashdata('mensaje', 'Película actualizada correctamente'); // Datos disponibles solo durante la siguiente solicitud, set() es permanente hasta que se cierre la sesion
+            // return redirect()->to('/dashboard/pelicula');
         } else {
             return redirect()->back()->with('mensaje', $this->validator->listErrors())->withInput();
         }
@@ -102,17 +109,106 @@ class Pelicula extends BaseController
         $etiquetaId = $this->request->getPost('etiqueta_id');
         $peliculaId = $id;
         $peliculaEtiqueta = $peliculaEtiquetaModel->buscarEtiqueta($etiquetaId, $peliculaId);
-        if(!$peliculaEtiqueta){
+        if (!$peliculaEtiqueta) {
             $peliculaEtiquetaModel->insert([
-                'pelicula_id'=> $peliculaId,
-                'etiqueta_id'=>$etiquetaId
+                'pelicula_id' => $peliculaId,
+                'etiqueta_id' => $etiquetaId
             ]);
         }
         return redirect()->back();
     }
-    function etiqueta_delete($id,$etiquetaId) {
+    function etiqueta_delete($id, $etiquetaId)
+    {
         $peliculaEtiqueta = new PeliculaEtiquetaModel();
-        $peliculaEtiqueta->deleteEtiquetaById($id,$etiquetaId);
-        return redirect()->back()->with('mensaje','Etiqueta eliminada');
+        $peliculaEtiqueta->deleteEtiquetaById($id, $etiquetaId);
+        return redirect()->back()->with('mensaje', 'Etiqueta eliminada');
+    }
+
+    private function asignar_imagen($peliculaId)
+    {
+        $imagefile = $this->request->getFile('imagen');
+
+        // Verifica si el archivo es válido
+        if ($imagefile && $imagefile->isValid()) {
+            // Imprime información del archivo para depuración
+            echo "MIME type: " . $imagefile->getClientMimeType();
+            echo "File name: " . $imagefile->getName();
+
+            // Realiza la validación
+            $validated = $this->validate([
+                'imagen' => [
+                    'uploaded[imagen]',
+                    'mime_in[imagen,image/jpg,image/gif,image/png,image/jpeg]',
+                    'max_size[imagen,4096]'
+                ]
+            ]);
+
+
+            if ($validated) {
+                // Generar un nombre de archivo aleatorio
+                $imageNombre = $imagefile->getRandomName();
+
+                // Verifica la ruta y si es válida
+                $ruta = '../public/uploads/peliculas';
+                if (!is_string($ruta)) {
+                    echo "Error: La ruta no es una cadena válida.";
+                }
+                if (!is_string($imageNombre)) {
+                    echo "Error: El nombre del archivo no es una cadena válida.";
+                }
+                $ext = $imagefile->guessExtension();
+                // Intenta mover el archivo a la ruta especificada
+                if ($imagefile->move($ruta, $imageNombre)) {
+                    echo "Imagen subida correctamente.";
+                } else {
+                    echo "Error al mover el archivo.";
+                }
+
+                $imagenModel = new ImagenModel();
+
+                $imagenId = $imagenModel->insert([
+                    'imagen' => $imageNombre,
+                    'extension' => $ext,
+                    'data' => 'pendiente'
+                ]);
+
+                $peliculaImagenModel = new PeliculaImagenModel();
+                $peliculaImagenModel->insert([
+                    'imagen_id' => $imagenId,
+                    'pelicula_id' => $peliculaId
+                ]);
+            } else {
+                echo $this->validator->listErrors();
+            }
+        } else {
+            echo $this->validator->listErrors();
+        }
+    }
+
+    public function borrar_imagen($peliculaId, $imagenId)
+    {
+        $imagenModel = new ImagenModel();
+        $peliculaImagenModel = new PeliculaImagenModel();
+
+        $imagen = $imagenModel->find($imagenId);
+        if ($imagen == null) {
+            return 'no existe';
+        }
+        $rutaImagen = 'uploads/peliculas/' . $imagen->imagen;
+        unlink($rutaImagen);
+
+        $peliculaImagenModel->where('imagen_id', $imagenId)->where('pelicula_id', $peliculaId)->delete();
+        // $imagenModel->delete(); No interesa borrar la imágen por si se utiliza en otro lado
+        return redirect()->back()->with('mensaje', 'Imagen eliminada');
+    }
+
+    public function descargar_imagen($imagenId){
+        $imagenModel = new ImagenModel();
+        $imagen = $imagenModel->find($imagenId);
+        if ($imagen == null) {
+            return 'no existe';
+        }
+        $rutaImagen = 'uploads/peliculas/' . $imagen->imagen;
+        return $this->response->download($rutaImagen,null)/* ->setFileName('nombre.jpg') opcion para dejar otro nombre */;
     }
 }

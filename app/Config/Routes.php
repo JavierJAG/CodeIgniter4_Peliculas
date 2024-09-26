@@ -8,7 +8,9 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->group('dashboard', ['namespace' => 'App\Controllers\Dashboard'], function ($routes) {
+    $routes->post('pelicula/(:num)/imagen/(:num)/delete', 'Pelicula::borrar_imagen/$1/$2');
     $routes->get('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas/$1');
+    $routes->post('pelicula/imagen/descargar/(:num)', 'Pelicula::descargar_imagen/$1');
     $routes->post('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas_post/$1');
     $routes->post('pelicula/(:num)/etiqueta/(:num)/delete','Pelicula::etiqueta_delete/$1/$2');
     $routes->presenter('pelicula');

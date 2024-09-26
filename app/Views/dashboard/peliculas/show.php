@@ -16,6 +16,9 @@
             DESCRIPCION
         </th>
         <th>
+            IMAGENES
+        </th>
+        <th>
             ETIQUETAS
         </th>
     </tr>
@@ -28,6 +31,17 @@
         </td>
         <td>
             <?= $pelicula->descripcion ?>
+        </td>
+        <td>
+            <?php foreach ($imagenes as $i) : ?>
+                <form action="/dashboard/pelicula/<?= $pelicula->id ?>/imagen/<?= $i->id ?>/delete" method="post">
+                    <img src="/uploads/peliculas/<?= $i->imagen ?>" alt="imagen" width="200">
+                    <button type="submit">Eliminar</button>
+                </form>
+                <form action="/dashboard/pelicula/imagen/descargar/<?= $i->id ?>" method="post">
+                    <button type="submit">Descargar</button>
+                </form>
+            <?php endforeach; ?>
         </td>
         <td>
             <ul>
@@ -49,7 +63,9 @@
         b.onclick = function(event) {
             fetch(this.getAttribute('data-url'), {
                 method: 'POST'
-            }).then(res => res.json()).then(res => {console.log(res)})
+            }).then(res => res.json()).then(res => {
+                console.log(res)
+            })
         }
     })
 </script>

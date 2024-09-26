@@ -6,10 +6,10 @@ use CodeIgniter\Model;
 
 class ImagenModel extends Model
 {
-    protected $table            = 'imagens';
+    protected $table            = 'imagenes';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['imagen','extension','data'];
@@ -43,4 +43,12 @@ class ImagenModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getPeliculasById($id){
+        return $this->select('p.*')
+        ->join('pelicula_imagen as pi', 'pi.imagen_id = imagenes.id')
+        ->join('peliculas as p','p.id = pi.pelicula_id')
+        ->where('imagenes.id',$id)
+        ->find();
+    }
 }
