@@ -35,7 +35,7 @@ class Categoria extends BaseController
             $categoriaModel->update($id, ['titulo' => $titulo]);
             return redirect()->to('/dashboard/categoria')->with('mensaje', 'Categoria actualizada correctamente');
         } else {
-            return redirect()->back()->with('mensaje', $this->validator->listErrors())->withInput();
+            return redirect()->to('/dashboard/categoria')->with('error', $this->validator)->withInput();
         }
     }
     public function delete($id)
@@ -53,7 +53,7 @@ class Categoria extends BaseController
             session()->setFlashdata('mensaje', 'Categoría creada correctamente');
             return redirect()->to('/dashboard/categoria');
         } else {
-            return redirect()->back()->with('mensaje', $this->validator->listErrors());
+            return redirect()->to('/dashboard/categoria')->with('error', $this->validator);
         }
     }
 }

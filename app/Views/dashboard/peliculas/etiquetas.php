@@ -12,24 +12,24 @@ $categoria_id = isset($_GET['categoria_id']) ? $_GET['categoria_id'] : ($pelicul
 ?>
 
 <form action="" method="post">
-    <label for="categoria_id">Categoría</label>
-    <select name="categoria_id" id="categoria_id">
-        <option value=""></option>
+    <label class="form-label" for="categoria_id">Categoría</label>
+    <select class="form-control" name="categoria_id" id="categoria_id">
+        <option class="form-control" value=""></option>
         <?php foreach ($categorias as $c) : ?>
-            <option value="<?= $c->id ?>" <?= $c->id == $categoria_id ? 'selected' : '' ?>><?= $c->titulo ?></option>
+            <option class="form-control" value="<?= $c->id ?>" <?= $c->id == $categoria_id ? 'selected' : '' ?>><?= $c->titulo ?></option>
         <?php endforeach; ?>
     </select>
 
-    <label for="etiqueta">Etiquetas</label>
-    <select name="etiqueta_id" id="etiqueta_id">
-        <option value=""></option>
+    <label class="form-label" for="etiqueta">Etiquetas</label>
+    <select class="form-control" name="etiqueta_id" id="etiqueta_id">
+        <option class="form-control" value=""></option>
         <?php foreach ($etiquetas as $e) : ?>
-            <option value="<?= $e->id ?>" <?= isset($_POST['etiqueta_id']) && $_POST['etiqueta_id'] == $e->id ? 'selected' : '' ?>>
+            <option class="form-control" value=<?= isset($_POST['etiqueta_id']) && $_POST['etiqueta_id'] == $e->id ? 'selected' : '' ?>>
                 <?= $e->titulo ?>
             </option>
         <?php endforeach; ?>
     </select>
-    <button type="submit" id='send' value="Enviar">Enviar</button>
+    <button class="btn btn-primary mt-4" type="submit" id='send' value="Enviar">Enviar</button>
 </form>
 
 <script>

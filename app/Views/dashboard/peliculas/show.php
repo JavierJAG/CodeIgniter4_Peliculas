@@ -3,8 +3,9 @@
 <title>Información película</title>
 <?= $this->endSection() ?>
 <?= $this->section('body') ?>
-<h1>Información</h1>
-<table>
+<div class="card-header"><h1>Información</h1></div>
+
+<table class="table">
     <tr>
         <th>
             ID

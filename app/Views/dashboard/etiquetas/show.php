@@ -4,7 +4,7 @@
 <?= $this->endSection() ?>
 <?= $this->section('body') ?>
 <h1>Información</h1>
-<table>
+<table class="table">
     <tr>
         <th>
             ID

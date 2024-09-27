@@ -54,7 +54,7 @@ class Pelicula extends BaseController
             ]);
             return redirect()->to('/dashboard/pelicula')->with('mensaje', 'Película creada correctamente');
         } else {
-            return redirect()->back()->with('mensaje', $this->validator->listErrors());
+            return redirect()->back()->with('error', $this->validator);
         }
     }
     public function update($id)
@@ -73,7 +73,7 @@ class Pelicula extends BaseController
             // session()->setFlashdata('mensaje', 'Película actualizada correctamente'); // Datos disponibles solo durante la siguiente solicitud, set() es permanente hasta que se cierre la sesion
             // return redirect()->to('/dashboard/pelicula');
         } else {
-            return redirect()->back()->with('mensaje', $this->validator->listErrors())->withInput();
+            return redirect()->back()->with('error', $this->validator)->withInput();
         }
     }
     public function delete($id)

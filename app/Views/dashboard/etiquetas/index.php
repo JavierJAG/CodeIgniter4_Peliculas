@@ -1,12 +1,13 @@
 <?= $this->extend('/Layouts/dashboard') ?>
 <?= $this->section('titulo') ?>
-<title>Películas</title>
+<title>Etiquetas</title>
 <?= $this->endSection() ?>
 <?= $this->section('body') ?>
 <?= view('/partials/_session') ?>
-<h1>Lista de películas</h1>
-<h3><a href="/dashboard/etiqueta/new">Crear Película</a></h3>
-<table>
+<?= view('/partials/_err') ?>
+<h1>Lista de etiquetas</h1>
+<h3><a class="btn btn-success btn-lg mb-4" href="/dashboard/etiqueta/new">Crear Etiqueta</a></h3>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Título</th>
@@ -19,15 +20,15 @@
             <td><?= $value->titulo ?></td>
             <td><?= $value->categoria ?></td>
             <td>
-                <a href="/dashboard/etiqueta/show/<?= $value->id ?>">Mostrar</a>
-                <a href="/dashboard/etiqueta/edit/<?= $value->id ?>">Editar</a>
+                <a class="btn btn-secondary btn- mt-1" href="/dashboard/etiqueta/show/<?= $value->id ?>">Mostrar</a>
+                <a class="btn btn-primary btn- mt-1"href="/dashboard/etiqueta/edit/<?= $value->id ?>">Editar</a>
                 <form action="/dashboard/etiqueta/delete/<?= $value->id ?>" method="post">
-                    <button type="submit">Eliminar</button>
+                    <button class="btn btn-danger btn- mt-1" type="submit">Eliminar</button>
                 </form>
             </td>
         </tr>
     <?php endforeach ?>
 
 </table>
-<?= $pager->links()?>
+<?= $pager->links() ?>
 <?= $this->endSection() ?>

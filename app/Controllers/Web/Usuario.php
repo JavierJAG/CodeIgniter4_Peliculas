@@ -50,7 +50,7 @@ class Usuario extends BaseController
             $usuariosModel->crearUsuario($usuario, $email, $usuariosModel->contrasenaHash($contrasena));
             return redirect()->to('/web/index')->with('mensaje', 'Usuario con éxito');
         } else {
-            return redirect()->to('/web/index')->with('mensaje', $this->validator->listErrors());
+            return redirect()->to('/web/index')->with('error', $this->validator);
         }
     }
     function logout()
