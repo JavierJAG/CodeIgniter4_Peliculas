@@ -22,13 +22,14 @@ $categoria_id = isset($_GET['categoria_id']) ? $_GET['categoria_id'] : ($pelicul
 
     <label class="form-label" for="etiqueta">Etiquetas</label>
     <select class="form-control" name="etiqueta_id" id="etiqueta_id">
-        <option class="form-control" value=""></option>
-        <?php foreach ($etiquetas as $e) : ?>
-            <option class="form-control" value=<?= isset($_POST['etiqueta_id']) && $_POST['etiqueta_id'] == $e->id ? 'selected' : '' ?>>
-                <?= $e->titulo ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <option value="">Selecciona una etiqueta</option>
+    <?php foreach ($etiquetas as $e) : ?>
+        <option value="<?= $e->id ?>" <?= (isset($_POST['etiqueta_id']) && $_POST['etiqueta_id'] == $e->id) ? 'selected' : '' ?>>
+            <?= $e->titulo ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
     <button class="btn btn-primary mt-4" type="submit" id='send' value="Enviar">Enviar</button>
 </form>
 

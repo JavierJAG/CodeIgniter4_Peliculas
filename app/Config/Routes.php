@@ -31,6 +31,14 @@ $routes->group('api', ['namespace' => '\App\Controllers\Api'], function ($routes
     $routes->resource('pelicula'/* ,['except'=>['index']] */);
     $routes->resource('categoria');
 });
+$routes->group('blog', ['namespace' => '\App\Controllers\Blog'], function ($routes) {
+
+$routes->get('categorias/(:num)','Pelicula::index_por_categoria/$1');
+$routes->get('etiquetas/(:num)','Pelicula::index_por_etiqueta/$1');
+$routes->get('(:num)','Pelicula::show/$1');
+$routes->get('etiquetas_por_categoria/(:num)','Pelicula::etiquetas_por_categoria/$1');
+$routes->get('','Pelicula::index');
+});
 
 
 /* +--------+---------------------------------+------+-------------------------------------------------+----------------+---------------+
