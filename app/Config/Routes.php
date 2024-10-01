@@ -12,7 +12,7 @@ $routes->group('dashboard', ['namespace' => 'App\Controllers\Dashboard'], functi
     $routes->get('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas/$1');
     $routes->post('pelicula/imagen/descargar/(:num)', 'Pelicula::descargar_imagen/$1');
     $routes->post('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas_post/$1');
-    $routes->post('pelicula/(:num)/etiqueta/(:num)/delete','Pelicula::etiqueta_delete/$1/$2');
+    $routes->post('pelicula/(:num)/etiqueta/(:num)/delete', 'Pelicula::etiqueta_delete/$1/$2');
     $routes->presenter('pelicula');
     $routes->presenter('etiqueta');
     $routes->presenter('categoria', ['except' => ['show']]);
@@ -28,16 +28,25 @@ $routes->group('web', ['namespace' => '\App\Controllers\Web'], function ($routes
     $routes->post('logout', 'Usuario::logout');
 });
 $routes->group('api', ['namespace' => '\App\Controllers\Api'], function ($routes) {
+    $routes->post('pelicula/etiquetas/(:num)', 'Pelicula::etiquetas_post/$1');
+    $routes->post('pelicula/(:num)/imagen/upload', 'Pelicula::upload_imagen/$1');
+    $routes->delete('pelicula/(:num)/imagen/delete/(:num)', 'Pelicula::borrar_imagen/$1/$2');
+    $routes->delete('pelicula/(:num)/etiqueta/(:num)/delete', 'Pelicula::etiqueta_delete/$1/$2');
+    $routes->get('pelicula/paginado', 'Pelicula::paginado');
+    $routes->get('pelicula/paginado_full', 'Pelicula::paginado_full');
+    $routes->get('pelicula/index_por_categoria/(:num)', 'Pelicula::index_por_categoria/$1');
+    $routes->get('pelicula/index_por_etiqueta/(:num)', 'Pelicula::index_por_etiqueta/$1');
     $routes->resource('pelicula'/* ,['except'=>['index']] */);
     $routes->resource('categoria');
+    $routes->resource('etiqueta');
 });
 $routes->group('blog', ['namespace' => '\App\Controllers\Blog'], function ($routes) {
 
-$routes->get('categorias/(:num)','Pelicula::index_por_categoria/$1');
-$routes->get('etiquetas/(:num)','Pelicula::index_por_etiqueta/$1');
-$routes->get('(:num)','Pelicula::show/$1');
-$routes->get('etiquetas_por_categoria/(:num)','Pelicula::etiquetas_por_categoria/$1');
-$routes->get('','Pelicula::index');
+    $routes->get('categorias/(:num)', 'Pelicula::index_por_categoria/$1');
+    $routes->get('etiquetas/(:num)', 'Pelicula::index_por_etiqueta/$1');
+    $routes->get('(:num)', 'Pelicula::show/$1');
+    $routes->get('etiquetas_por_categoria/(:num)', 'Pelicula::etiquetas_por_categoria/$1');
+    $routes->get('', 'Pelicula::index');
 });
 
 
